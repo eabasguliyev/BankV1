@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using _090221Task.Exception;
+using _090221Task.Exceptions;
 
 namespace _090221Task.DataStructures
 {
@@ -52,7 +52,15 @@ namespace _090221Task.DataStructures
 
         public void Clear() => Data = null;
 
-        public int Length => Data.Length;
+        public int Length
+        {
+            get
+            {
+                if (Data != null)
+                    return Data.Length;
+                return 0;
+            }
+        }
 
         public T this[int index] => Data[index];
 

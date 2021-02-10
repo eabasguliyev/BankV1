@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace _090221Task.Exception
+namespace _090221Task.Exceptions
 {
     class NotEmployeeException : ApplicationException
     {

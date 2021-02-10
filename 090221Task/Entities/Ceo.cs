@@ -1,6 +1,6 @@
 ﻿using System;
 using _090221Task.AbstractClasses;
-using _090221Task.Exception;
+using _090221Task.Exceptions;
 using _090221Task.Interfaces;
 
 namespace _090221Task.Entities
@@ -12,8 +12,13 @@ namespace _090221Task.Entities
             return base.ToString();
         }
 
-        public void ChangePercentage(decimal percent, ref decimal bankPercent)
+        public void ChangePercentage(double percent, ref double bankPercent)
         {
+            var newBankPercent = bankPercent + percent;
+
+            if (!BankHelper.CheckBankPercentage(newBankPercent))
+                throw new BankPercentException(newBankPercent);
+
             bankPercent = percent;
         }
 
@@ -27,6 +32,7 @@ namespace _090221Task.Entities
         {
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Meeting created.");
+            Console.ResetColor();
             Console.WriteLine("Participants: ");
 
             BankHelper.PrintWorkers(workers);

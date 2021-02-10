@@ -1,6 +1,6 @@
 ﻿using System;
 using _090221Task.DataStructures;
-using _090221Task.Exception;
+using _090221Task.Exceptions;
 
 namespace _090221Task.Entities
 {
@@ -75,5 +75,6 @@ namespace _090221Task.Entities
                 Console.WriteLine();
             }
         }
+
     }
 }

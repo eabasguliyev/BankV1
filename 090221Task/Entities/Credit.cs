@@ -1,6 +1,6 @@
 ﻿using System;
 using _090221Task.AbstractClasses;
-using _090221Task.Exception;
+using _090221Task.Exceptions;
 using _090221Task.Interfaces;
 
 namespace _090221Task.Entities
@@ -13,6 +13,8 @@ namespace _090221Task.Entities
         public int Months { get; set; }
         public double Payment { get; set; }
         public double Debt { get; set; }
+
+        public double PaymentPerMonth { get; set; }
 
         public override string ToString()
         {
@@ -32,9 +34,18 @@ Payment: {Payment}";
             Debt -= amount;
         }
 
-        public void CalculatePercent()
+        public void CalculatePayment()
         {
-            Payment = Amount * (Percent / 100.0);
+            var payment = CalculatePercent(Amount, Percent);
+            var paymentPerMonth = payment / Months;
+
+            Payment = payment;
+            Debt = Payment;
+            PaymentPerMonth = paymentPerMonth;
+        }
+        public double CalculatePercent(double amount, double percent)
+        {
+            return amount * (percent / 100.0);
         }
     }
 }
