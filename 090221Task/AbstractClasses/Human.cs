@@ -8,6 +8,7 @@ namespace _090221Task.AbstractClasses
         public string Surname { get; set; }
         public int Age { get; set; }
 
+
         public override string ToString()
         {
             return $@"{base.ToString()}

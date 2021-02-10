@@ -1,5 +1,6 @@
 ﻿using System;
 using _090221Task.AbstractClasses;
+using _090221Task.DataStructures;
 using _090221Task.Exception;
 
 namespace _090221Task.Entities
@@ -8,23 +9,30 @@ namespace _090221Task.Entities
     {
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        public Operation[] Operations { get; set; }
+        public CustomList<Operation> Operations { get; private set; }
 
-        public void AddOperation()
+        public Worker()
         {
-            //tamamla
+            Operations = new CustomList<Operation>();
         }
 
+        public override string ToString()
+        {
+            return $@"{base.ToString()}
+Start time: {StartTime:G}
+End Time: {EndTime:G}";
+        }
+        
         public void ShowOperations()
         {
-            if (Operations == null)
+            if (Operations.Empty)
                 throw new NotOperationException("There is no operation.");
 
             foreach (var operation in Operations)
             {
                 Console.WriteLine(operation);
+                Console.WriteLine();
             }
-
         }
     }
 }

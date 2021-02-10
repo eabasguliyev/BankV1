@@ -9,7 +9,7 @@
         {
             return $@"{base.ToString()}
 Position: {Position}
-Salary: {Salary}";
+Salary: {Salary:C2}";
         }
     }
 }

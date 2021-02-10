@@ -1,5 +1,6 @@
 ﻿using System;
 using _090221Task.AbstractClasses;
+using _090221Task.Exception;
 using _090221Task.Interfaces;
 
 namespace _090221Task.Entities
@@ -11,19 +12,24 @@ namespace _090221Task.Entities
             return base.ToString();
         }
 
-        public void ChangePercentage(decimal percent, ref decimal bankPercentage)
+        public void ChangePercentage(decimal percent, ref decimal bankPercent)
         {
-            bankPercentage = percent;
+            bankPercent = percent;
         }
 
-        public void Organize()
+        public void Organize(Worker[] workers)
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"Employees on the list must be in the CEO’s meeting room at {DateTime.Now.AddHours(1)} p.m.");
+            BankHelper.PrintWorkers(workers);
         }
 
-        public void MakeMeeting()
+        public void MakeMeeting(Worker[] workers)
         {
-            throw new NotImplementedException();
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("Meeting created.");
+            Console.WriteLine("Participants: ");
+
+            BankHelper.PrintWorkers(workers);
         }
 
         public void Control(Worker[] workers)
@@ -31,12 +37,23 @@ namespace _090221Task.Entities
             if (workers == null)
                 throw new ArgumentNullException(nameof(workers));
 
+            if (workers.Length == 0)
+                throw new NotEmployeeException("There is no worker!");
+
+
             foreach (var worker in workers)
             {
-
-                if(worker.Operations == null)
-                    Console.WriteLine("This worker does not have any operation");
-
+                Console.WriteLine($"Worker: {worker.Name} {worker.Surname}" );
+                try
+                {
+                    worker.ShowOperations();
+                }
+                catch (NotOperationException ex)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(ex.Message);
+                    Console.ResetColor();
+                }
             }
         }
     }
