@@ -17,7 +17,7 @@ namespace _090221Task
 
         static ConsoleScreen()
         {
-            MainMenuOptions = new [] { "CEO", "Managers", "Workers", "Exit" };
+            MainMenuOptions = new [] { "Bank Info", "CEO", "Managers", "Workers", "Exit" };
             CeoMenuOptions = new [] { "Info", "Control", "Organize", "Make meeting", "Change credit percent", "Back"};
             ManagersMenuOptions = new [] { "Show Managers", "Switch Manager", "Back"};
             ManagerMenuOptions = new [] { "Info", "Control", "Organize", "Calculate salaries", "Back"};

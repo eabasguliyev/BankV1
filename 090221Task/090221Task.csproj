@@ -46,6 +46,8 @@
     <Compile Include="AbstractClasses\Employee.cs" />
     <Compile Include="AbstractClasses\Entity.cs" />
     <Compile Include="AbstractClasses\Human.cs" />
+    <Compile Include="CeoSide.cs" />
+    <Compile Include="CeoSideHelper.cs" />
     <Compile Include="ConsoleScreen.cs" />
     <Compile Include="DataStructures\CustomList.cs" />
     <Compile Include="Entities\Bank.cs" />

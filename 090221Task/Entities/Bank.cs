@@ -17,6 +17,14 @@ namespace _090221Task.Entities
         public CustomList<Client> Clients { get; private set; }
         public CustomList<Credit> Credits { get; private set; }
 
+        public override string ToString()
+        {
+            return $@"Name: {Name}
+Budget: {Budget:C2}
+Percentage: {Percentage:P1}
+Profit: {Profit:C2}";
+        }
+
         public Bank()
         {
             Workers = new CustomList<Worker>();

@@ -7,29 +7,30 @@ namespace _090221Task.Entities
 {
     public class Ceo : Employee, IOrganize, IMeeting, IControl
     {
-        public override string ToString()
+        public void ChangePercentage(double percent, Bank bank)
         {
-            return base.ToString();
-        }
-
-        public void ChangePercentage(double percent, ref double bankPercent)
-        {
-            var newBankPercent = bankPercent + percent;
+            var newBankPercent = bank.Percentage + percent;
 
             if (!BankHelper.CheckBankPercentage(newBankPercent))
                 throw new BankPercentException(newBankPercent);
 
-            bankPercent = percent;
+            bank.Percentage = percent;
         }
 
         public void Organize(Worker[] workers)
         {
+            if (workers == null)
+                throw new NotEmployeeException("There is no workers!");
+
             Console.WriteLine($"Employees on the list must be in the CEO’s meeting room at {DateTime.Now.AddHours(1)} p.m.");
             BankHelper.PrintWorkers(workers);
         }
 
         public void MakeMeeting(Worker[] workers)
         {
+            if (workers == null)
+                throw new NotEmployeeException("There is no workers!");
+
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Meeting created.");
             Console.ResetColor();
@@ -41,9 +42,6 @@ namespace _090221Task.Entities
         public void Control(Worker[] workers)
         {
             if (workers == null)
-                throw new ArgumentNullException(nameof(workers));
-
-            if (workers.Length == 0)
                 throw new NotEmployeeException("There is no worker!");
 
 
