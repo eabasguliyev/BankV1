@@ -2,6 +2,6 @@
 {
     public enum WorkerMenuOptions
     {
-        Info = 1, AddOperation, Back
+        Info = 1, AddOperation, GiveCredit, Back
     }
 }

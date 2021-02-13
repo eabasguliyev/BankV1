@@ -1,7 +1,5 @@
-﻿using System;
-using _090221Task.AbstractClasses;
+﻿using _090221Task.AbstractClasses;
 using _090221Task.Exceptions;
-using _090221Task.Interfaces;
 
 namespace _090221Task.Entities
 {

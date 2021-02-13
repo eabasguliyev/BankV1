@@ -22,7 +22,7 @@ namespace _090221Task.Entities
 Start time: {StartTime:G}
 End Time: {EndTime:G}";
         }
-        
+
         public void ShowOperations()
         {
             if (Operations.Empty)

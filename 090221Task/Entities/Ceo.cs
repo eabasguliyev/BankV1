@@ -14,7 +14,7 @@ namespace _090221Task.Entities
             if (!BankHelper.CheckBankPercentage(newBankPercent))
                 throw new BankPercentException(newBankPercent);
 
-            bank.Percentage = percent;
+            bank.Percentage = newBankPercent;
         }
 
         public void Organize(Worker[] workers)

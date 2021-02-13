@@ -14,7 +14,7 @@ namespace _090221Task
                 {
                     var percent = Convert.ToDouble(Console.ReadLine());
 
-                    if (percent >= 0 && percent <= 100)
+                    if (percent >= -100 && percent <= 100)
                         return percent;
 
                     Console.WriteLine("Percent must be between [ 0 - 100 ]");
@@ -23,7 +23,6 @@ namespace _090221Task
                 {
                     Console.WriteLine("Percent must be numeric value!");
                 }
-                ConsoleScreen.Clear();
             }
         }
     }

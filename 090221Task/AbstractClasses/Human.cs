@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace _090221Task.AbstractClasses
+﻿namespace _090221Task.AbstractClasses
 {
     public abstract class Human:Entity
     {

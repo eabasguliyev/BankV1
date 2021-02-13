@@ -25,7 +25,7 @@ namespace _090221Task
                     case CeoMenuOptions.Info:
                     {
                         Console.WriteLine(bank.Ceo);
-                        ConsoleScreen.Clear();
+                        ConsoleScreen.Clear(); 
                         break;
                     }
                     case CeoMenuOptions.Control:
@@ -37,8 +37,8 @@ namespace _090221Task
                         catch (Exception e)
                         {
                             Console.WriteLine(e.Message);
-                            ConsoleScreen.Clear();
                         }
+                        ConsoleScreen.Clear(); 
                         break;
                     }
                     case CeoMenuOptions.Organize:
@@ -50,8 +50,8 @@ namespace _090221Task
                         catch (Exception e)
                         {
                             Console.WriteLine(e.Message);
-                            ConsoleScreen.Clear();
                         }
+                        ConsoleScreen.Clear(); 
                         break;
                     }
                     case CeoMenuOptions.MakeMeeting:
@@ -63,27 +63,40 @@ namespace _090221Task
                         catch (Exception e)
                         {
                             Console.WriteLine(e.Message);
-                            ConsoleScreen.Clear();
                         }
+                        ConsoleScreen.Clear(); 
                         break;
                     }
                     case CeoMenuOptions.ChangeCreditPercent:
                     {
-                        Console.WriteLine($"Old percent: {bank.Percentage:P1}");
-                        Console.WriteLine("New percent: ");
-                        var percent = CeoSideHelper.InputPercent() / 100;
-
-                        try
+                        while (true)
                         {
-                            bank.Ceo.ChangePercentage(percent, bank);
+                            Console.WriteLine($"Old percent: {bank.Percentage:P1}");
+                            Console.WriteLine("New percent: ");
+                            var percent = CeoSideHelper.InputPercent() / 100;
 
-                            Console.WriteLine("Bank percent changed!");
-                            ConsoleScreen.Clear();
-                        }
-                        catch (BankPercentException e)
-                        {
-                            Console.WriteLine(e.Message);
-                            ConsoleScreen.Clear();
+                            try
+                            {
+                                bank.Ceo.ChangePercentage(percent, bank);
+
+                                Console.WriteLine("Bank percent changed!");
+                                ConsoleScreen.Clear();
+                                break;
+                            }
+                            catch (BankPercentException e) when (e.BankPercentage < 0)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Bank percent must be greater or equal to zero.");
+                                Console.ResetColor();
+                                ConsoleScreen.Clear();
+                            }
+                            catch (BankPercentException e) when (e.BankPercentage > 0)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Bank percent must be lower or equal to hundred.");
+                                Console.ResetColor();
+                                ConsoleScreen.Clear();
+                            }
                         }
                         break;
                     }

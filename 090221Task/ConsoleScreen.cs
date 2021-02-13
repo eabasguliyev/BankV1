@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _090221Task
 {
@@ -10,19 +6,15 @@ namespace _090221Task
     {
         public static string[] MainMenuOptions { get; }
         public static string[] CeoMenuOptions { get; }
-        public static string[] ManagersMenuOptions { get; }
         public static string[] ManagerMenuOptions { get; }
-        public static string[] WorkersMenuOptions { get; }
         public static string[] WorkerMenuOptions { get; }
 
         static ConsoleScreen()
         {
             MainMenuOptions = new [] { "Bank Info", "CEO", "Managers", "Workers", "Exit" };
             CeoMenuOptions = new [] { "Info", "Control", "Organize", "Make meeting", "Change credit percent", "Back"};
-            ManagersMenuOptions = new [] { "Show Managers", "Switch Manager", "Back"};
             ManagerMenuOptions = new [] { "Info", "Control", "Organize", "Calculate salaries", "Back"};
-            WorkersMenuOptions = new [] { "Show workers", "Switch Worker", "Back"};
-            WorkerMenuOptions = new [] { "Info", "Add Operation", "Back"};
+            WorkerMenuOptions = new [] { "Info", "Add Operation", "Give Credit", "Back"};
         }
 
         public static int Input(int length)

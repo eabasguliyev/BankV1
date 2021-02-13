@@ -1,4 +1,5 @@
 ﻿using System;
+using _090221Task.AbstractClasses;
 using _090221Task.DataStructures;
 using _090221Task.Exceptions;
 
@@ -84,5 +85,20 @@ Profit: {Profit:C2}";
             }
         }
 
+
+        public void ShortInfoEmployees(Employee[] employees)
+        {
+            if (employees == null)
+                throw new NotEmployeeException("There is no employee!");
+
+            foreach (var employee in employees)
+            {
+                Console.WriteLine("-------------------------------------------");
+                Console.WriteLine();
+                Console.WriteLine($"Id: {employee.Id}");
+                Console.WriteLine($"Name: {employee.Name} {employee.Surname}");
+                Console.WriteLine();
+            }
+        }
     }
 }

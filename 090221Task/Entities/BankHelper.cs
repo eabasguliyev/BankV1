@@ -28,7 +28,7 @@ namespace _090221Task.Entities
 
         public static bool CheckBankPercentage(double newBankPercent)
         {
-            if (newBankPercent < 0 || newBankPercent > 100)
+            if (newBankPercent < 0 || newBankPercent > 1)
                 return false;
             return true;
         }

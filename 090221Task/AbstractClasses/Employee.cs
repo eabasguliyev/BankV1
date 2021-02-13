@@ -4,6 +4,7 @@
     {
         public string Position { get; set; }
         public double Salary { get; set; }
+        public string Pin { get; set; }
 
         public override string ToString()
         {
