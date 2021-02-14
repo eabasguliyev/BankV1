@@ -2,6 +2,6 @@
 {
     public enum MainMenuOptions
     {
-        BankInfo = 1, Ceo, Managers, Workers, Exit
+        BankInfo = 1, Ceo, Managers, Workers, Clients, Exit
     }
 }

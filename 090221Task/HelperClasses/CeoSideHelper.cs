@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace _090221Task
+namespace _090221Task.HelperClasses
 {
     public static class CeoSideHelper
     {

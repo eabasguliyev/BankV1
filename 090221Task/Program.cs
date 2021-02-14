@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using _090221Task.Entities;
 using _090221Task.Enums;
 using _090221Task.Exceptions;
+using _090221Task.Logger;
 using _090221Task.Login;
 
 namespace _090221Task
@@ -82,6 +83,14 @@ namespace _090221Task
                 {
                     case MainMenuOptions.BankInfo:
                     {
+                        try
+                        {
+                            bank.CalculateProfit();
+                        }
+                        catch (Exception)
+                        {
+                            
+                        }
                         Console.WriteLine(bank);
                         ConsoleScreen.Clear();
                         break;
@@ -100,9 +109,7 @@ namespace _090221Task
                             {
                                 Login.Login.login(id, pin, tmp);
 
-                                Console.ForegroundColor = ConsoleColor.Green;
-                                Console.WriteLine("Login successfully!");
-                                Console.ResetColor();
+                                ConsoleLogger.Info("Login successfully!");
                                 ConsoleScreen.Clear();
 
                                 CeoSide.Start(bank);
@@ -110,9 +117,7 @@ namespace _090221Task
                             }
                             catch (Exception e)
                             {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine(e.Message);
-                                Console.ResetColor();
+                                ConsoleLogger.Error(e.Message);
                                 ConsoleScreen.Clear();
                             }
                         }
@@ -129,10 +134,8 @@ namespace _090221Task
                             try
                             {
                                 var manager = Login.Login.login(id, pin, bank.Managers.Data) as Manager;
-
-                                Console.ForegroundColor = ConsoleColor.Green;
-                                Console.WriteLine("Login successfully!");
-                                Console.ResetColor();
+                                    
+                                ConsoleLogger.Info("Login successfully!");
                                 ConsoleScreen.Clear();
                                 
                                 ManagerSide.Start(manager, bank);
@@ -140,9 +143,7 @@ namespace _090221Task
                             }
                             catch (Exception e)
                             {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine(e.Message);
-                                Console.ResetColor();
+                                ConsoleLogger.Error(e.Message);
                                 ConsoleScreen.Clear();
                             }
                         }
@@ -160,9 +161,7 @@ namespace _090221Task
                             {
                                 var worker = Login.Login.login(id, pin, bank.Workers.Data) as Worker;
 
-                                Console.ForegroundColor = ConsoleColor.Green;
-                                Console.WriteLine("Login successfully!");
-                                Console.ResetColor();
+                                ConsoleLogger.Info("Login successfully!");
                                 ConsoleScreen.Clear();
                                 
                                 WorkerSide.Start(worker, bank);
@@ -170,9 +169,43 @@ namespace _090221Task
                             }
                             catch (Exception e)
                             {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine(e.Message);
-                                Console.ResetColor();
+                                ConsoleLogger.Error(e.Message);
+                                ConsoleScreen.Clear();
+                            }
+                        }
+                        break;
+                    }
+
+                    case MainMenuOptions.Clients:
+                    {
+                        try
+                        {
+                            bank.ShortInfoClients();
+                        }
+                        catch (Exception e)
+                        {
+                            ConsoleLogger.Error(e.Message);
+                            ConsoleScreen.Clear();
+                            break;
+                        }
+
+                        while (true)
+                        {
+                            LoginHelper.GetLoginData(out Guid id, out string pin);
+
+                            try
+                            {
+                                var client = Login.Login.login(id, pin, bank.Clients.Data) as Client;
+
+                                ConsoleLogger.Info("Login successfully!");
+                                ConsoleScreen.Clear();
+
+                                ClientSide.Start(client, bank);
+                                break;
+                            }
+                            catch (Exception e)
+                            {
+                                ConsoleLogger.Error(e.Message);
                                 ConsoleScreen.Clear();
                             }
                         }

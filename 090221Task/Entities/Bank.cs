@@ -1,15 +1,20 @@
 ﻿using System;
+using System.Configuration;
 using _090221Task.AbstractClasses;
 using _090221Task.DataStructures;
 using _090221Task.Exceptions;
+using _090221Task.HelperClasses;
+using _090221Task.Logger;
 
 namespace _090221Task.Entities
 {
     public class Bank
     {
         public string Name { get; set; }
-        public decimal Budget { get; set; }
-        public decimal Profit { get; set; }
+        public double Budget { get; set; }
+        public double TotalProfit { get; set; }
+
+        public double Income { get; set; }
         
         public double Percentage { get; set; }
         public Ceo Ceo { get; set; }
@@ -23,7 +28,8 @@ namespace _090221Task.Entities
             return $@"Name: {Name}
 Budget: {Budget:C2}
 Percentage: {Percentage:P1}
-Profit: {Profit:C2}";
+Profit: {TotalProfit:C2}
+Income: {Income:C2}";
         }
 
         public Bank()
@@ -32,6 +38,16 @@ Profit: {Profit:C2}";
             Managers = new CustomList<Manager>();
             Clients = new CustomList<Client>();
             Credits = new CustomList<Credit>();
+        }
+
+        public void GiveCredit(Credit credit)
+        {
+            if (!BankHelper.CheckBankBudget(credit.Amount, Budget))
+                throw new NotEnoughMoneyException("There is not enough money in the bank!");
+
+            credit.CalculatePayment();
+            Budget -= credit.Amount;
+            Credits.Add(credit);
         }
 
         public void CalculateProfit()
@@ -46,33 +62,58 @@ Profit: {Profit:C2}";
                 profit += ((Credit) credit).Payment;
             }
 
-            Profit = Convert.ToDecimal(profit);
+            TotalProfit = profit;
         }
 
-        public void ShowClientCredit(string fullname)
+        public void ShowClientCredits(Client client)
         {
-            var nameComponents = BankHelper.NameSplit(fullname);
+            if(Credits.Data == null)
+                throw new NotCreditException(
+                    $"There is no credit associated this client-> {client.Name} {client.Surname}");
 
-            var index = Array.FindIndex(Credits.Data,
-                credit => credit.Client.Name == nameComponents[0] && credit.Client.Surname == nameComponents[1]);
+            var flag = false;
+            foreach (var credit in Credits.Data)
+            {
+                if (credit.Client.Name == client.Name && credit.Client.Surname == client.Surname)
+                {
+                    Console.WriteLine("----------------------------------------");
+                    Console.WriteLine(credit);
+                    flag = true;
+                }
+            }
 
-            if (index < 0)
-                throw new NotCreditException($"There is no credit association this client -> {fullname}");
-
-            Console.WriteLine(Credits[index]);
+            if (!flag)
+                throw new NotCreditException(
+                    $"There is no credit associated this client-> {client.Name} {client.Surname}");
         }
 
-        public void PayCredit(Client client, double money)
+        public void PayCredit(Credit credit, double money)
         {
+            try
+            {
+                credit.PayCredit(money);
+                Income += money;
+            }
+            catch (Exception e)
+            {
+                ConsoleLogger.Error(e.Message);
+            }
+        }
+
+        public Credit GetCredit(Client client, Guid id, out int creditIndex)
+        {
+            if (Credits.Length == 0)
+                throw new NotCreditException($"There is no credit in the bank!");
+
             var index = Array.FindIndex(Credits.Data,
-                credit => credit.Client.Name == client.Name && credit.Client.Surname == client.Surname);
+                credit => credit.Id == id);
 
             if (index < 0)
                 throw new NotCreditException($"There is no credit association this client -> {client.Name} {client.Surname}");
 
-            Credits[index].PayCredit(money);
+            creditIndex = index;
+            return Credits[index];
         }
-
         public void ShowAllCredit()
         {
             if (Credits.Empty)
@@ -85,7 +126,20 @@ Profit: {Profit:C2}";
             }
         }
 
+        public void ShortInfoClients()
+        {
+            if (Clients.Data == null)
+                throw new NotClientException("There is no client!");
 
+            foreach (var client in Clients.Data) 
+            {
+                Console.WriteLine("-------------------------------------------");
+                Console.WriteLine();
+                Console.WriteLine($"Id: {client.Id}");
+                Console.WriteLine($"Name: {client.Name} {client.Surname}");
+                Console.WriteLine();
+            }
+        }
         public void ShortInfoEmployees(Employee[] employees)
         {
             if (employees == null)

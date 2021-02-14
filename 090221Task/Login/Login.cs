@@ -23,8 +23,26 @@ namespace _090221Task.Login
                 throw new InvalidLoginException("Pin is wrong!");
 
             // login is successfuly in here.
-
+            
             return employees[index];
+        }
+
+        public static Client login(Guid id, string pin, Client[] clients)
+        {
+            if (clients.Length == 0)
+                throw new NotEmployeeException("There is no client!");
+
+            var index = Array.FindIndex(clients, worker => worker.Id == id);
+
+            if (index < 0)
+                throw new NotEmployeeException($"There is no client associated this id -> {id}");
+
+            if (clients[index].Pin != pin)
+                throw new InvalidLoginException("Pin is wrong!");
+
+            // login is successfuly in here.
+
+            return clients[index];
         }
     }
 }

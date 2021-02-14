@@ -1,5 +1,6 @@
 ﻿using System;
 using _090221Task.AbstractClasses;
+using _090221Task.Logger;
 
 namespace _090221Task.Login
 {
@@ -27,7 +28,7 @@ namespace _090221Task.Login
             pin = Input();
         }
 
-        private static string Input()
+        public static string Input()
         {
             var str = String.Empty;
             while (true)
@@ -38,10 +39,9 @@ namespace _090221Task.Login
 
                 if (!String.IsNullOrWhiteSpace(str))
                     return str;
+                
 
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Input can not be empty.");
-                Console.ResetColor();
+                ConsoleLogger.Error("Input can not be empty.");
             }
         }
     }

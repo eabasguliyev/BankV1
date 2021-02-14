@@ -8,13 +8,15 @@ namespace _090221Task
         public static string[] CeoMenuOptions { get; }
         public static string[] ManagerMenuOptions { get; }
         public static string[] WorkerMenuOptions { get; }
+        public static string[] ClientMenuOptions { get; }
 
         static ConsoleScreen()
         {
-            MainMenuOptions = new [] { "Bank Info", "CEO", "Managers", "Workers", "Exit" };
+            MainMenuOptions = new [] { "Bank Info", "CEO", "Managers", "Workers", "Clients", "Exit" };
             CeoMenuOptions = new [] { "Info", "Control", "Organize", "Make meeting", "Change credit percent", "Back"};
             ManagerMenuOptions = new [] { "Info", "Control", "Organize", "Calculate salaries", "Back"};
             WorkerMenuOptions = new [] { "Info", "Add Operation", "Give Credit", "Back"};
+            ClientMenuOptions = new [] { "Info", "Pay credit", "Back"};
         }
 
         public static int Input(int length)
